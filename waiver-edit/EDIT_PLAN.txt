@@ -11,7 +11,7 @@ EDL (output -> source):
    21.80- 25.54  src 20.28-24.02  M6   Dan sijil tetap diteruskan tapi anda tak perlu bayar apa-apa.
    25.54- 28.94  src 24.40-27.80  M7   Ok yang kedua pula adalah pampasan sakit kritikal.
    28.94- 37.48  src 28.04-36.58  M8   So sekiranya berlaku salah satu penyakit kritikal yang dilindungi. Anda boleh dapat duit pampasan. Ikutlah berapa sum cover yang anda nak.
-   37.48- 42.18  src 37.00-41.70  M9   Dan kalau nak tahu lebih detail boleh refer saya Cik Mas AIA Johor Bahru.
+   37.48- 42.18  src 37.00-41.70  M9   Dan kalau nak tahu lebih detail boleh refer saya Cek Maz AIA Johor Bahru.
    42.18- 44.56  src 41.88-44.26  M10  Untuk saya brief lebih detail tentang
    44.56- 46.78  src 44.48-46.70  M11  critical illness protection. Ok.
 
@@ -81,7 +81,7 @@ CAPTIONS:
    37.48- 38.04  Dan kalau nak
    38.04- 39.02  tahu lebih detail
    39.02- 40.06  boleh refer saya
-   40.06- 42.18  Cik Mas AIA Johor Bahru.
+   40.06- 42.18  Cek Maz AIA Johor Bahru.
    42.18- 43.22  Untuk saya brief
    43.22- 44.56  lebih detail tentang
    44.56- 46.00  critical illness protection.

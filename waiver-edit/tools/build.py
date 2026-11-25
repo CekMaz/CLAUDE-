@@ -11,6 +11,10 @@ ROOT = HERE / "waiver"
 W, H = 1080, 1920
 FOOT = "assets/footage.mp4"
 WORDS = [w for s in json.loads((HERE / "transcript_raw.json").read_text()) for w in s["words"]]
+FIX = {"Cik": "Cek", "Mas": "Maz"}   # betul ejaan nama
+for _w in WORDS:
+    _t = _w["w"].strip()
+    if _t in FIX: _w["w"] = " " + FIX[_t]
 
 # ---------------------------------------------------------------- EDL (awkward pauses removed)
 # (id, src_in, src_out, note)
@@ -25,7 +29,7 @@ EDL = [
     ("M6", 20.28, 24.02, "Dan sijil tetap diteruskan tapi anda tak perlu bayar apa-apa."),
     ("M7", 24.40, 27.80, "Ok yang kedua pula adalah pampasan sakit kritikal."),
     ("M8", 28.04, 36.58, "So sekiranya berlaku salah satu penyakit kritikal yang dilindungi. Anda boleh dapat duit pampasan. Ikutlah berapa sum cover yang anda nak."),
-    ("M9", 37.00, 41.70, "Dan kalau nak tahu lebih detail boleh refer saya Cik Mas AIA Johor Bahru."),
+    ("M9", 37.00, 41.70, "Dan kalau nak tahu lebih detail boleh refer saya Cek Maz AIA Johor Bahru."),
     ("M10", 41.88, 44.26, "Untuk saya brief lebih detail tentang"),
     ("M11", 44.48, 46.70, "critical illness protection. Ok."),
 ]
@@ -42,7 +46,7 @@ def o(cid, s):
 # ---------------------------------------------------------------- CAPTIONS (auto-grouped from whisper words)
 KEY = {"ci", "protection", "waiver", "pengecualian", "bayaran", "sakit", "kritikal", "cancer", "sijil", "diteruskan",
        "tak", "perlu", "bayar", "apa-apa", "pampasan", "duit", "sum", "cover", "penyakit", "dilindungi", "dua",
-       "pertama", "kedua", "detail", "critical", "illness", "cik", "mas"}
+       "pertama", "kedua", "detail", "critical", "illness", "cek", "maz"}
 MAIN = [c for c in CLIPS if not c["id"].startswith("H")]
 def owner(w):
     mid = (w["s"] + w["e"]) / 2
@@ -62,9 +66,9 @@ def words_in(c):
         if owner(w) == c["id"]:
             out.append((txt, min(max(w["s"], c["src"]), c["src_out"] - 0.1)))
     return out
-BIND = {("ci", "protection"), ("cik", "mas"), ("johor", "bahru"), ("sum", "cover"), ("sakit", "kritikal"),
+BIND = {("ci", "protection"), ("cek", "maz"), ("johor", "bahru"), ("sum", "cover"), ("sakit", "kritikal"),
         ("penyakit", "kritikal"), ("critical", "illness"), ("tak", "perlu"), ("perlu", "bayar"), ("duit", "pampasan"),
-        ("salah", "satu"), ("mas", "aia"), ("aia", "johor"), ("pengecualian", "bayaran")}
+        ("salah", "satu"), ("maz", "aia"), ("aia", "johor"), ("pengecualian", "bayaran")}
 def _c(w): return re.sub(r"[.,?!]", "", w).lower()
 CAPTIONS = []
 for c in CLIPS:
@@ -371,7 +375,7 @@ html = f"""<!doctype html>
 
       <!-- NAME + CTA -->
       <div id="name" class="clip topui" {span(B["NAME"], DUR)} data-track-index="2">
-        <div class="nm"><div class="a">CIK MAS</div><div class="b">AIA &#8226; JOHOR BAHRU</div></div>
+        <div class="nm"><div class="a">CEK MAZ</div><div class="b">AIA &#8226; JOHOR BAHRU</div></div>
         <div class="cta">Nak tahu lebih <b>DETAIL?</b> Refer saya!</div></div>
 
       <!-- captions -->
