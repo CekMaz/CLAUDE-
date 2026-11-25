@@ -1,0 +1,29 @@
+DURATION 23.343s
+
+EDL (output -> source):
+    0.00-  1.80  src 12.70-14.50  x1.0  HOOK flash-forward: paip gunmetal tukar stream -> mist
+    1.80- 10.00  src  1.80-10.00  x1.0  Sinki silver: satu dua tiga / kalau yang ni / warna metal
+   10.00- 15.20  src 11.70-16.90  x1.0  Gunmetal: satu dua tiga / dua dia punya ni kecil / faham
+   15.20- 16.53  src 13.40-14.20  x0.6  REPLAY slow-mo mist (isi awkward pause 16.9-17.9)
+   16.53- 19.76  src 17.92-21.15  x1.0  Yang ni lagi okey / betul akak / ada warna ni tak
+   19.76- 23.34  src 22.55-26.13  x1.0  Ikut akak / akak tengok ni / dia cam ni sikit kan
+
+BEATS:
+  DUR       23.343
+  HOOK_END  1.8
+  MODE_A    [2.98, 3.5, 3.82]
+  WALL_IN   6.42
+  WALL_OUT  7.62
+  HWALL     9.1
+  FAHAM     14.18
+  S2        10.0
+  MODE_B    [10.16, 10.68, 11.24]
+  MIST      11.8
+  REPLAY    15.2
+  S3        16.533
+  ASK       17.973
+  ANS       19.053
+  ANS_END   19.733
+  S4        19.763
+  LOOK      21.053
+  CTA       20.313
