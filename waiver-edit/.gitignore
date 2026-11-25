@@ -4,3 +4,4 @@ waiver/.hyperframes/
 waiver/.transcode-cache/
 preview/*_hevc.mp4
 preview/render.log
+preview/work-*/
