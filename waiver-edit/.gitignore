@@ -1,5 +1,5 @@
 node_modules/
-waiver/assets/footage.mp4
+waiver/assets/footage*.mp4
 waiver/.hyperframes/
 waiver/.transcode-cache/
 preview/*_hevc.mp4

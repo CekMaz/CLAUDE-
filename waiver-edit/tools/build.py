@@ -9,12 +9,14 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent.parent
 ROOT = HERE / "waiver"
 W, H = 1080, 1920
-FOOT = "assets/footage.mp4"
+SPEED = 1.15   # suara dilajukan (pitch kekal) - footage_fast.mp4 dibuat dengan setpts/atempo
+FOOT = "assets/footage_fast.mp4"
 WORDS = [w for s in json.loads((HERE / "transcript_raw.json").read_text()) for w in s["words"]]
 FIX = {"Cik": "Cek", "Mas": "Maz"}   # betul ejaan nama
 for _w in WORDS:
     _t = _w["w"].strip()
     if _t in FIX: _w["w"] = " " + FIX[_t]
+    _w["s"] /= SPEED; _w["e"] /= SPEED
 
 # ---------------------------------------------------------------- EDL (awkward pauses removed)
 # (id, src_in, src_out, note)
@@ -35,11 +37,14 @@ EDL = [
 ]
 CLIPS, t = [], 0.0
 for cid, a, b, note in EDL:
-    CLIPS.append(dict(id=cid, start=round(t, 3), dur=round(b - a, 3), src=a, src_out=b, note=note))
-    t += b - a
+    a, b = a / SPEED, b / SPEED
+    CLIPS.append(dict(id=cid, start=round(t, 3), dur=round(b - a, 3), src=round(a, 3), src_out=round(b, 3), note=note))
+    t = CLIPS[-1]["start"] + CLIPS[-1]["dur"]
 DUR = round(t, 3)
 C = {c["id"]: c for c in CLIPS}
 def o(cid, s):
+    """map ORIGINAL-source seconds inside clip cid to output time"""
+    s = s / SPEED
     c = C[cid]
     return round(c["start"] + max(0.0, min(s, c["src_out"]) - c["src"]), 3)
 
@@ -77,7 +82,7 @@ for c in CLIPS:
     ws = words_in(c)
     grp = []
     for i, (txt, s) in enumerate(ws):
-        grp.append((txt, o(c["id"], s)))
+        grp.append((txt, o(c["id"], s * SPEED)))   # s is already sped-up time
         nxt = ws[i + 1][0] if i + 1 < len(ws) else None
         bound = nxt is not None and (_c(txt), _c(nxt)) in BIND and txt[-1] not in ".,?!"
         if (len(grp) >= 3 and not bound) or len(grp) >= 5 or txt[-1] in ".,?!" or nxt is None:
@@ -221,54 +226,54 @@ html = f"""<!doctype html>
         background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0)); }}
 
       /* captions */
-      .cap {{ position: absolute; left: 50px; right: 50px; top: 1440px; z-index: 20; text-align: center;
-        font-weight: 900; font-size: 78px; line-height: 1.1; text-transform: uppercase; letter-spacing: -1px; }}
-      .cap .w {{ display: inline-block; margin: 0 8px; color: #fff; -webkit-text-stroke: 14px #000; paint-order: stroke fill;
+      .cap {{ position: absolute; left: 50px; right: 50px; top: 1370px; z-index: 20; text-align: center;
+        font-weight: 900; font-size: 58px; line-height: 1.1; text-transform: uppercase; letter-spacing: -1px; }}
+      .cap .w {{ display: inline-block; margin: 0 6px; color: #fff; -webkit-text-stroke: 11px #000; paint-order: stroke fill;
         text-shadow: 0 10px 18px rgba(0,0,0,.45); }}
       .cap .w.k {{ color: #FFD400; }}
 
       /* hook */
       #hookShade {{ position: absolute; left: 0; right: 0; bottom: 0; height: 1000px; z-index: 8;
         background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.5) 55%, rgba(0,0,0,0) 100%); }}
-      .hook {{ position: absolute; left: 0; right: 0; top: 1200px; z-index: 9; text-align: center; font-family: "Anton"; line-height: 1; }}
+      .hook {{ position: absolute; left: 0; right: 0; top: 1190px; z-index: 9; text-align: center; font-family: "Anton"; line-height: 1; }}
       .hook .hl {{ display: block; text-transform: uppercase; text-shadow: 0 8px 0 rgba(0,0,0,.35); }}
-      #hookA .a1 {{ font-size: 120px; margin-bottom: 34px; }}
-      #hookA .a2 {{ font-size: 190px; color: #fff; }}
+      #hookA .a1 {{ font-size: 88px; margin-bottom: 26px; }}
+      #hookA .a2 {{ font-size: 138px; color: #fff; }}
       #hookA .a2 b {{ display: inline-block; background: #E8262B; padding: 18px 34px 8px; border-radius: 18px; font-weight: 400; line-height: 1; }}
-      #hookB .b1 {{ font-size: 120px; color: #FFD400; }}
-      #hookB .b2 {{ font-size: 140px; }}
-      #rm0 {{ position: absolute; left: 0; right: 0; top: 70px; z-index: 9; text-align: center; }}
-      #rm0 .stamp {{ display: inline-block; font-family: "Anton"; font-size: 190px; line-height: 1; padding: 6px 50px; color: #22C55E;
-        border: 14px solid #22C55E; border-radius: 40px; background: rgba(0,0,0,.6); transform: rotate(-6deg); }}
+      #hookB .b1 {{ font-size: 86px; color: #FFD400; }}
+      #hookB .b2 {{ font-size: 104px; }}
+      #rm0 {{ position: absolute; left: 0; right: 0; top: 150px; z-index: 9; text-align: center; }}
+      #rm0 .stamp {{ display: inline-block; font-family: "Anton"; font-size: 130px; line-height: 1; padding: 6px 40px; color: #22C55E;
+        border: 10px solid #22C55E; border-radius: 40px; background: rgba(0,0,0,.6); transform: rotate(-6deg); }}
 
       /* headline wall */
       #hwall {{ position: absolute; inset: 0; z-index: 11; background: rgba(4,10,22,.66); overflow: hidden; }}
-      .hrow {{ position: absolute; left: 50%; white-space: nowrap; font-family: "Anton"; font-size: 178px; line-height: 1; letter-spacing: 2px; }}
+      .hrow {{ position: absolute; left: 50%; white-space: nowrap; font-family: "Anton"; font-size: 150px; line-height: 1; letter-spacing: 2px; }}
       .hrow.outline {{ color: transparent; -webkit-text-stroke: 3px rgba(255,255,255,.85); }}
       .hrow.dim {{ color: rgba(255,255,255,.13); }}
       .hrow.solid {{ color: #FFD400; text-shadow: 0 10px 30px rgba(0,0,0,.8); }}
 
       /* top-zone UI */
-      .topui {{ position: absolute; left: 0; right: 0; top: 120px; z-index: 14; text-align: center; }}
-      #title .t1 {{ font-family: "Anton"; font-size: 120px; line-height: 1; color: #FFD400; text-shadow: 0 8px 0 rgba(0,0,0,.4); }}
-      #title .t2 {{ margin-top: 10px; font-weight: 800; font-size: 44px; letter-spacing: 6px; }}
+      .topui {{ position: absolute; left: 0; right: 0; top: 170px; z-index: 14; text-align: center; }}
+      #title .t1 {{ font-family: "Anton"; font-size: 88px; line-height: 1; color: #FFD400; text-shadow: 0 8px 0 rgba(0,0,0,.4); }}
+      #title .t2 {{ margin-top: 8px; font-weight: 800; font-size: 32px; letter-spacing: 6px; }}
       #cards {{ display: flex; justify-content: center; gap: 30px; }}
-      .card {{ width: 470px; padding: 26px 20px; border-radius: 30px; background: rgba(255,255,255,.96); color: #111; box-shadow: 0 16px 34px rgba(0,0,0,.5); }}
-      .card .n {{ display: inline-block; width: 86px; height: 86px; line-height: 86px; border-radius: 50%; background: #111; color: #FFD400;
-        font-family: "Anton"; font-size: 58px; }}
-      .card .lbl {{ margin-top: 12px; font-family: "Anton"; font-size: 64px; line-height: 1; }}
-      .card .sub {{ margin-top: 6px; font-weight: 800; font-size: 30px; color: #555; }}
-      .chip {{ display: inline-block; padding: 14px 34px; border-radius: 22px; background: #FFD400; color: #111; font-family: "Anton"; font-size: 70px;
+      .card {{ width: 360px; padding: 18px 16px; border-radius: 24px; background: rgba(255,255,255,.96); color: #111; box-shadow: 0 16px 34px rgba(0,0,0,.5); }}
+      .card .n {{ display: inline-block; width: 62px; height: 62px; line-height: 62px; border-radius: 50%; background: #111; color: #FFD400;
+        font-family: "Anton"; font-size: 42px; }}
+      .card .lbl {{ margin-top: 8px; font-family: "Anton"; font-size: 48px; line-height: 1; }}
+      .card .sub {{ margin-top: 4px; font-weight: 800; font-size: 23px; color: #555; }}
+      .chip {{ display: inline-block; padding: 10px 26px; border-radius: 18px; background: #FFD400; color: #111; font-family: "Anton"; font-size: 52px;
         box-shadow: 0 12px 26px rgba(0,0,0,.45); }}
-      .chip small {{ font-family: "Montserrat"; font-weight: 900; font-size: 36px; }}
-      #def .box {{ display: inline-block; margin-top: 24px; padding: 18px 34px; border-radius: 22px; background: rgba(0,0,0,.72); border: 4px solid #FFD400;
-        font-weight: 900; font-size: 50px; }}
+      .chip small {{ font-family: "Montserrat"; font-weight: 900; font-size: 26px; }}
+      #def .box {{ display: inline-block; margin-top: 18px; padding: 12px 26px; border-radius: 18px; background: rgba(0,0,0,.72); border: 3px solid #FFD400;
+        font-weight: 900; font-size: 38px; }}
       #def .box b {{ color: #FFD400; }}
-      #check {{ text-align: left; left: 110px; right: 110px; }}
-      #check .it {{ display: flex; align-items: center; gap: 24px; margin-bottom: 20px; padding: 16px 28px; border-radius: 24px;
-        background: rgba(255,255,255,.96); color: #111; font-weight: 900; font-size: 50px; box-shadow: 0 12px 26px rgba(0,0,0,.4); }}
-      #check .it i {{ flex: none; width: 62px; height: 62px; border-radius: 50%; background: #22C55E; color: #fff; font-style: normal;
-        text-align: center; line-height: 62px; font-size: 40px; }}
+      #check {{ text-align: left; left: 190px; right: 190px; }}
+      #check .it {{ display: flex; align-items: center; gap: 18px; margin-bottom: 14px; padding: 12px 22px; border-radius: 20px;
+        background: rgba(255,255,255,.96); color: #111; font-weight: 900; font-size: 36px; box-shadow: 0 12px 26px rgba(0,0,0,.4); }}
+      #check .it i {{ flex: none; width: 46px; height: 46px; border-radius: 50%; background: #22C55E; color: #fff; font-style: normal;
+        text-align: center; line-height: 46px; font-size: 30px; }}
 
       /* clone wall */
       #wall {{ position: absolute; inset: 0; z-index: 12; background: #000; }}
@@ -276,32 +281,32 @@ html = f"""<!doctype html>
       .tile {{ position: absolute; width: 360px; height: 640px; overflow: hidden; border: 6px solid #000; border-radius: 22px; }}
       .tile img {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
       .tile .tb, .tile .tlb {{ opacity: 0; }}
-      .tile .tl {{ position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); font-family: "Anton"; font-size: 46px; letter-spacing: 2px;
-        padding: 4px 22px; border-radius: 16px; background: #FFD400; color: #111; white-space: nowrap; }}
+      .tile .tl {{ position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); font-family: "Anton"; font-size: 36px; letter-spacing: 2px;
+        padding: 4px 18px; border-radius: 16px; background: #FFD400; color: #111; white-space: nowrap; }}
 
       /* orbit */
       #orbit {{ position: absolute; left: 0; top: 0; width: {W}px; height: {H}px; z-index: 13; perspective: 1200px; perspective-origin: 583px 1170px; }}
       #orbitPos {{ position: absolute; left: 583px; top: 1170px; width: 0; height: 0; transform-style: preserve-3d; }}
       #ring {{ position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }}
       .oi {{ position: absolute; left: -240px; top: -40px; width: 480px; height: 80px; text-align: center; line-height: 80px; white-space: nowrap;
-        font-weight: 900; font-size: 52px; color: #FFD400; -webkit-text-stroke: 9px #000; paint-order: stroke fill; backface-visibility: hidden; }}
+        font-weight: 900; font-size: 40px; color: #FFD400; -webkit-text-stroke: 8px #000; paint-order: stroke fill; backface-visibility: hidden; }}
 
       /* duit pampasan + slider */
-      #duit .big {{ font-family: "Anton"; font-size: 150px; line-height: 1; color: #22C55E; text-shadow: 0 8px 0 rgba(0,0,0,.45); }}
-      #duit .rm {{ position: absolute; font-family: "Anton"; font-size: 70px; color: #22C55E; padding: 2px 18px; border-radius: 14px;
+      #duit .big {{ font-family: "Anton"; font-size: 108px; line-height: 1; color: #22C55E; text-shadow: 0 8px 0 rgba(0,0,0,.45); }}
+      #duit .rm {{ position: absolute; font-family: "Anton"; font-size: 50px; color: #22C55E; padding: 2px 18px; border-radius: 14px;
         background: rgba(0,0,0,.6); border: 4px solid #22C55E; }}
-      #slider .lbl {{ font-family: "Anton"; font-size: 90px; line-height: 1; }}
+      #slider .lbl {{ font-family: "Anton"; font-size: 66px; line-height: 1; }}
       #slider .lbl b {{ color: #FFD400; font-weight: 400; }}
-      #slider .track {{ position: relative; margin: 34px auto 0; width: 760px; height: 22px; border-radius: 11px; background: rgba(255,255,255,.3); }}
+      #slider .track {{ position: relative; margin: 26px auto 0; width: 600px; height: 18px; border-radius: 9px; background: rgba(255,255,255,.3); }}
       #slider .fill {{ position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 11px; background: #FFD400; transform-origin: 0 50%; }}
-      #slider .knob {{ position: absolute; top: -24px; left: -35px; width: 70px; height: 70px; border-radius: 50%; background: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.5); }}
-      #slider .sub {{ margin-top: 30px; font-weight: 900; font-size: 46px; -webkit-text-stroke: 8px #000; paint-order: stroke fill; }}
+      #slider .knob {{ position: absolute; top: -18px; left: -27px; width: 54px; height: 54px; border-radius: 50%; background: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.5); }}
+      #slider .sub {{ margin-top: 22px; font-weight: 900; font-size: 34px; -webkit-text-stroke: 8px #000; paint-order: stroke fill; }}
 
       /* name + CTA */
-      #name .nm {{ display: inline-block; padding: 18px 44px 14px; border-radius: 26px; background: #fff; color: #111; box-shadow: 0 16px 34px rgba(0,0,0,.5); }}
-      #name .nm .a {{ font-family: "Anton"; font-size: 110px; line-height: 1; }}
-      #name .nm .b {{ font-weight: 900; font-size: 40px; letter-spacing: 4px; color: #D31145; }}
-      #name .cta {{ margin-top: 26px; font-weight: 900; font-size: 54px; -webkit-text-stroke: 10px #000; paint-order: stroke fill; }}
+      #name .nm {{ display: inline-block; padding: 12px 34px 10px; border-radius: 22px; background: #fff; color: #111; box-shadow: 0 16px 34px rgba(0,0,0,.5); }}
+      #name .nm .a {{ font-family: "Anton"; font-size: 80px; line-height: 1; }}
+      #name .nm .b {{ font-weight: 900; font-size: 29px; letter-spacing: 3px; color: #D31145; }}
+      #name .cta {{ margin-top: 20px; font-weight: 900; font-size: 40px; -webkit-text-stroke: 8px #000; paint-order: stroke fill; }}
       #name .cta b {{ color: #FFD400; }}
 
       #flash {{ position: absolute; inset: 0; z-index: 40; background: #fff; opacity: 0; pointer-events: none; }}
@@ -348,7 +353,7 @@ html = f"""<!doctype html>
         <div class="it" id="c2"><i>&#10003;</i>Sijil tetap diteruskan</div>
         <div class="it" id="c3"><i>&#10003;</i>Tak perlu bayar apa-apa</div></div>
       <div id="rm0b" class="clip" {span(B["RM0"], B["M7"])} data-track-index="2" style="position:absolute;right:50px;top:1130px;z-index:15">
-        <div style="font-family:Anton;font-size:120px;line-height:1;color:#22C55E;padding:4px 30px;border:10px solid #22C55E;border-radius:28px;background:rgba(0,0,0,.6);transform:rotate(-8deg)">RM0</div></div>
+        <div style="font-family:Anton;font-size:88px;line-height:1;color:#22C55E;padding:4px 24px;border:8px solid #22C55E;border-radius:28px;background:rgba(0,0,0,.6);transform:rotate(-8deg)">RM0</div></div>
 
       <!-- CLONE WALL -> #2 -->
       <div id="wall" class="clip" {span(B["M7"] - 0.05, B["WALL_OUT"])} data-track-index="2"><div id="wallInner">
@@ -365,7 +370,7 @@ html = f"""<!doctype html>
       <!-- DUIT PAMPASAN -->
       <div id="duit" class="clip topui" {span(B["DUIT"] - 0.05, B["SUM"])} data-track-index="2">
         <div class="big">DUIT PAMPASAN</div>
-        <div class="rm" style="left:40px;top:190px">RM</div><div class="rm" style="right:40px;top:190px">RM</div></div>
+        <div class="rm" style="left:60px;top:140px">RM</div><div class="rm" style="right:60px;top:140px">RM</div></div>
 
       <!-- SUM COVER slider -->
       <div id="slider" class="clip topui" {span(B["SUM"], B["M9"])} data-track-index="2">
@@ -483,8 +488,8 @@ html = f"""<!doctype html>
 
       // sum cover slider: knob sweeps, "ikut pilihan anda"
       tl.fromTo("#slider", {{ y: -40, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.25 }}, B.SUM);
-      tl.fromTo("#slider .knob", {{ x: 60 }}, {{ keyframes: [{{ x: 600, duration: 0.7 }}, {{ x: 260, duration: 0.5 }}, {{ x: 520, duration: 0.5 }}], ease: "power2.inOut", immediateRender: false }}, B.SUM + 0.2);
-      tl.fromTo("#slider .fill", {{ scaleX: 60 / 760 }}, {{ keyframes: [{{ scaleX: 600 / 760, duration: 0.7 }}, {{ scaleX: 260 / 760, duration: 0.5 }}, {{ scaleX: 520 / 760, duration: 0.5 }}], ease: "power2.inOut", immediateRender: false }}, B.SUM + 0.2);
+      tl.fromTo("#slider .knob", {{ x: 50 }}, {{ keyframes: [{{ x: 470, duration: 0.6 }}, {{ x: 210, duration: 0.45 }}, {{ x: 410, duration: 0.45 }}], ease: "power2.inOut", immediateRender: false }}, B.SUM + 0.2);
+      tl.fromTo("#slider .fill", {{ scaleX: 50 / 600 }}, {{ keyframes: [{{ scaleX: 470 / 600, duration: 0.6 }}, {{ scaleX: 210 / 600, duration: 0.45 }}, {{ scaleX: 410 / 600, duration: 0.45 }}], ease: "power2.inOut", immediateRender: false }}, B.SUM + 0.2);
 
       // name + CTA
       tl.fromTo("#name .nm", {{ y: -80, opacity: 0, scale: 0.8 }}, {{ y: 0, opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }}, B.NAME);
@@ -507,7 +512,7 @@ html = f"""<!doctype html>
 </html>
 """
 (ROOT / "index.html").write_text(html)
-lines = [f"DURATION {DUR}s (asal 47.5s)", "", "EDL (output -> source):"]
+lines = [f"DURATION {DUR}s (asal 47.5s, suara x{SPEED})", "", "EDL (output -> source):"]
 lines += [f"  {c['start']:6.2f}-{c['start']+c['dur']:6.2f}  src {c['src']:5.2f}-{c['src_out']:5.2f}  {c['id']:4s} {c['note']}" for c in CLIPS]
 lines += ["", "BEATS:"] + [f"  {k:10s} {v}" for k, v in B.items()]
 lines += ["", "CAPTIONS:"] + [f"  {g['start']:6.2f}-{g['end']:6.2f}  " + " ".join(w for w, _ in g["words"]) for g in CAPS]
