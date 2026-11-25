@@ -1,0 +1,88 @@
+DURATION 46.78s (asal 47.5s)
+
+EDL (output -> source):
+    0.00-  1.36  src 15.20-16.56  H1   HOOK a: 'Contoh anda kena cancer.'
+    1.36-  3.16  src 22.08-23.88  H2   HOOK b: 'tapi anda tak perlu bayar apa-apa.'
+    3.16-  5.98  src  0.42- 3.24  M1   Hai Assalamualaikum semua. Ok hari ni saya nak bercakap
+    5.98- 11.22  src  3.48- 8.72  M2   tentang CI Protection. Untuk CI Protection ni kita ada dua jenis. Yang pertama waiver.
+   11.22- 15.78  src  9.02-13.58  M3   Waiver ni maksudnya pengecualian bayaran sekiranya berlaku sakit kritikal
+   15.78- 18.88  src 13.82-16.92  M4   kepada orang yang dilindungi. Contoh anda kena cancer.
+   18.88- 21.80  src 17.20-20.12  M5   So boleh apply untuk pengecualian bayaran sijil.
+   21.80- 25.54  src 20.28-24.02  M6   Dan sijil tetap diteruskan tapi anda tak perlu bayar apa-apa.
+   25.54- 28.94  src 24.40-27.80  M7   Ok yang kedua pula adalah pampasan sakit kritikal.
+   28.94- 37.48  src 28.04-36.58  M8   So sekiranya berlaku salah satu penyakit kritikal yang dilindungi. Anda boleh dapat duit pampasan. Ikutlah berapa sum cover yang anda nak.
+   37.48- 42.18  src 37.00-41.70  M9   Dan kalau nak tahu lebih detail boleh refer saya Cik Mas AIA Johor Bahru.
+   42.18- 44.56  src 41.88-44.26  M10  Untuk saya brief lebih detail tentang
+   44.56- 46.78  src 44.48-46.70  M11  critical illness protection. Ok.
+
+BEATS:
+  DUR        46.78
+  H2         1.36
+  CANCER_H   0.9
+  BAYAR_H    2.4
+  MAIN       3.16
+  HWALL      6.06
+  HWALL_END  7.25
+  DUA        9.2
+  PERTAMA    10.02
+  M3         11.22
+  DEF        12.04
+  CANCER     18.06
+  M5         18.88
+  CHK1       20.18
+  CHK2       23.16
+  CHK3       24.24
+  RM0        24.64
+  M7         25.54
+  WALL_OUT   26.8
+  SEC2       27.14
+  ORBIT      30.32
+  ORBIT_END  32.86
+  DUIT       33.96
+  SUM        35.12
+  M9         37.48
+  NAME       39.48
+  M10        42.18
+  END_OK     46.0
+
+CAPTIONS:
+    3.16-  4.42  Hai Assalamualaikum semua.
+    4.42-  5.12  Ok hari ni
+    5.12-  5.98  saya nak bercakap
+    5.98-  7.56  tentang CI Protection.
+    7.56-  8.40  Untuk CI Protection
+    8.40-  9.20  ni kita ada
+    9.20-  9.88  dua jenis.
+    9.88- 11.22  Yang pertama waiver.
+   11.22- 12.04  Waiver ni maksudnya
+   12.04- 13.90  pengecualian bayaran sekiranya
+   13.90- 15.78  berlaku sakit kritikal
+   15.78- 16.50  kepada orang yang
+   16.50- 17.22  dilindungi.
+   17.22- 18.06  Contoh anda kena
+   18.06- 18.88  cancer.
+   18.88- 19.90  So boleh apply
+   19.90- 21.80  untuk pengecualian bayaran
+   21.80- 22.28  sijil.
+   22.28- 23.16  Dan sijil tetap
+   23.16- 24.24  diteruskan tapi anda
+   24.24- 24.92  tak perlu bayar
+   24.92- 25.54  apa-apa.
+   25.54- 26.34  Ok yang kedua
+   26.34- 27.74  pula adalah pampasan
+   27.74- 28.94  sakit kritikal.
+   28.94- 30.32  So sekiranya berlaku
+   30.32- 31.84  salah satu penyakit kritikal
+   31.84- 32.86  yang dilindungi.
+   32.86- 33.96  Anda boleh dapat
+   33.96- 35.12  duit pampasan.
+   35.12- 36.60  Ikutlah berapa sum cover
+   36.60- 37.48  yang anda nak.
+   37.48- 38.04  Dan kalau nak
+   38.04- 39.02  tahu lebih detail
+   39.02- 40.06  boleh refer saya
+   40.06- 42.18  Cik Mas AIA Johor Bahru.
+   42.18- 43.22  Untuk saya brief
+   43.22- 44.56  lebih detail tentang
+   44.56- 46.00  critical illness protection.
+   46.00- 46.78  Ok.

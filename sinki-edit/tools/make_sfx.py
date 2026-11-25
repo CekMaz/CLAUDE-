@@ -119,6 +119,23 @@ for k in range(6):
     x[i:i+n] += seg * np.hanning(n)
 save("glitch.wav", lp(x, 7000), -8)
 
+# ka-ching (cash register): bell partials + coin shimmer
+d = 1.2; tt = t(d); x = np.zeros_like(tt)
+for f0, at in [(2093.0, 0.0), (2637.0, 0.07)]:
+    i = int(at * SR); seg = tt[: len(tt) - i]
+    for m, a, dec in [(1, 1, 6), (2.4, .5, 9), (3.9, .3, 12)]:
+        x[i:] += a * np.sin(2 * np.pi * f0 * m * seg) * np.exp(-seg * dec)
+x += hp(rng.standard_normal(len(tt)), 5000) * np.exp(-tt * 18) * 0.25
+x[: int(0.03 * SR)] += bp(rng.standard_normal(int(0.03 * SR)), 800, 4000) * 0.8
+save("kaching.wav", x, -5)
+
+# check / success blip (two rising notes)
+d = 0.32; tt = t(d); x = np.zeros_like(tt)
+for f0, at in [(880.0, 0.0), (1318.5, 0.09)]:
+    i = int(at * SR); seg = tt[: len(tt) - i]
+    x[i:] += np.sin(2 * np.pi * f0 * seg) * np.exp(-seg * 22)
+save("check.wav", x, -6)
+
 # ---- background beat: 112 BPM, light pop groove with plucks ----
 bpm = 112; beat = 60 / bpm; total = float(sys.argv[2]) if len(sys.argv) > 2 else 24.0
 n = int(SR * total); mix = np.zeros((n, 2))
