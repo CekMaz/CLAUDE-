@@ -1,0 +1,8 @@
+node_modules/
+dm/assets/footage*.mp4
+dm/.hyperframes/
+dm/.transcode-cache/
+preview/*_hevc.mp4
+preview/render.log
+preview/work-*/
+preview/.*hf-transaction*/

@@ -1,0 +1,24 @@
+DURATION 5.901s (asal 10.0s, suara x1.1)
+
+EDL (output -> source asal):
+   0.00- 1.27  src  1.65- 3.05  V1 HOOK: dia minum (ditutup clone wall + tajuk)
+   1.27- 4.23  src  3.05- 6.30  V2 Tapi guys, kalau korang nak tahu apa perubahan besar tu
+   4.23- 5.90  src  6.86- 8.70  V3 DM saya sekarang (+ senyum). Jeda 6.30-6.86 & pan kamera 8.75+ dibuang
+
+BEATS:
+  DUR        5.901
+  V2         1.273
+  V3         4.228
+  GUYS       1.445
+  KALAU      1.7
+  PERUBAHAN  3.282
+  DM         4.265
+  SEKARANG   4.628
+  SMILE      5.083
+  WALL_OUT   1.313
+
+CAPTIONS:
+   1.32- 1.70  Tapi guys,
+   1.70- 3.03  kalau korang nak tahu
+   3.03- 4.26  apa perubahan besar tu
+   4.26- 5.90  DM saya sekarang!
