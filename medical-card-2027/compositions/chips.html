@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Archivo Black", sans-serif;
+    }
+    .chip {
+      position: absolute;
+      padding: 16px 24px 14px;
+      border-radius: 999px;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      box-shadow: 0 10px 0 rgba(0, 0, 0, 0.28);
+    }
+    .chip.y {
+      background: var(--accent, #ffd23f);
+      color: #0b0b0f;
+    }
+    .chip.d {
+      background: #0b0b0f;
+      color: #fff;
+      border: 3px solid var(--accent, #ffd23f);
+    }
+  </style>
+  <div id="root" data-composition-id="chips" data-width="1080" data-height="1920">
+    <!-- "banyak perubahan": what could change — placeholder topics, confirm before posting -->
+    <div id="ch-wrap" class="clip" data-start="0" data-duration="0.96" style="position: absolute; inset: 0">
+      <div id="ch-1" class="chip y" style="left: 120px; top: 745px">PREMIUM?</div>
+      <div id="ch-2" class="chip d" style="left: 450px; top: 790px">CO-PAYMENT?</div>
+      <div id="ch-3" class="chip d" style="left: 140px; top: 870px">DEDUCTIBLE?</div>
+      <div id="ch-4" class="chip y" style="left: 420px; top: 925px">HAD TAHUNAN?</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const chips = [
+        ["#ch-1", 0.0, -6],
+        ["#ch-2", 0.13, 5],
+        ["#ch-3", 0.26, 4],
+        ["#ch-4", 0.39, -5],
+      ];
+      chips.forEach(([id, t, r]) => {
+        tl.fromTo(id, { scale: 0, rotation: r * 3, opacity: 0 }, { scale: 1, rotation: r, opacity: 1, duration: 0.22, ease: "back.out(2.2)" }, t + 0.01);
+      });
+      // clear just before the cut into "pada tahun"
+      chips.forEach(([id], i) => tl.to(id, { scale: 0.6, opacity: 0, duration: 0.1, ease: "power2.in" }, 0.82 + i * 0.01));
+      tl.set("#ch-wrap", { opacity: 0 }, 0.95);
+      window.__timelines["chips"] = tl;
+    })();
+  </script>
+</template>

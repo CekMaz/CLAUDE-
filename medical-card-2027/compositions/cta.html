@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Archivo Black", sans-serif;
+    }
+    #cta-clip {
+      position: absolute;
+      inset: 0;
+    }
+    #cta-scrim {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 640px;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 35%, rgba(0, 0, 0, 0.7) 100%);
+    }
+    #cta-q {
+      position: absolute;
+      left: 150px;
+      width: 720px;
+      top: 860px;
+      text-align: center;
+      font-size: 78px;
+      line-height: 1.02;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    #cta-q span {
+      display: inline-block;
+      margin: 0 12px;
+    }
+    #cta-q .hl {
+      color: var(--accent, #ffd23f);
+    }
+    #cta-btn-row {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 1095px;
+      text-align: center;
+    }
+    #cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--hot, #ff3b3b);
+      color: #fff;
+      font-size: 50px;
+      line-height: 1;
+      padding: 24px 36px 22px;
+      border-radius: 999px;
+      box-shadow: 0 12px 0 rgba(0, 0, 0, 0.3);
+    }
+    #cta-btn svg {
+      width: 46px;
+      height: 46px;
+    }
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1920">
+    <div id="cta-clip" class="clip" data-start="0" data-duration="2.71">
+      <div id="cta-scrim"></div>
+      <div id="cta-q"><span id="cta-w1">Nak</span><span id="cta-w2">tahu</span><span id="cta-w3">apa</span><span id="cta-w4" class="hl">yang</span><span id="cta-w5" class="hl">berubah?</span></div>
+      <div id="cta-btn-row">
+        <div id="cta-btn">
+          <span>FOLLOW · PART 2</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#cta-scrim", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.04);
+      ["#cta-w1", "#cta-w2", "#cta-w3", "#cta-w4", "#cta-w5"].forEach((w, i) => {
+        tl.fromTo(w, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, 0.08 + i * 0.08);
+      });
+      tl.fromTo("#cta-btn", { scale: 0, rotation: -6 }, { scale: 1, rotation: -2, duration: 0.3, ease: "back.out(2)" }, 0.55);
+      window.__timelines["cta"] = tl;
+    })();
+  </script>
+</template>

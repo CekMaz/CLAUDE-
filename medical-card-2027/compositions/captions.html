@@ -1,0 +1,72 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Archivo Black", sans-serif;
+    }
+    #cap-clip {
+      position: absolute;
+      inset: 0;
+    }
+    /* bottom edge pinned at y 1248 (lowest line every 9:16 safe area allows) */
+    .cap-g {
+      position: absolute;
+      left: 130px;
+      width: 750px;
+      bottom: 700px;
+      text-align: center;
+      opacity: 0;
+      overflow: visible;
+    }
+    .cap-w {
+      display: inline-block;
+      font-size: 80px;
+      line-height: 1.08;
+      color: #fff;
+      -webkit-text-stroke: 14px #0b0b0f;
+      paint-order: stroke fill;
+      text-transform: uppercase;
+      margin: 0 10px;
+      transform-origin: 50% 80%;
+    }
+    .cap-w.hl {
+      color: var(--accent, #ffd23f);
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div id="cap-clip" class="clip" data-start="0" data-duration="6.32" data-layout-allow-overlap>
+      <div id="cap-g1" class="cap-g"><span id="cap-w1" class="cap-w">Tepi!</span><span id="cap-w2" class="cap-w">Tepi!</span><span id="cap-w3" class="cap-w hl">Tepi!</span></div>
+      <div id="cap-g2" class="cap-g"><span id="cap-w4" class="cap-w">Ok</span></div>
+      <div id="cap-g3" class="cap-g"><span id="cap-w5" class="cap-w hl">Guys!</span></div>
+      <div id="cap-g4" class="cap-g"><span id="cap-w6" class="cap-w">Korang</span><span id="cap-w7" class="cap-w">nak</span><span id="cap-w8" class="cap-w hl">tahu</span><span id="cap-w9" class="cap-w">tak?</span></div>
+      <div id="cap-g5" class="cap-g"><span id="cap-w10" class="cap-w hl">Tahun</span><span id="cap-w11" class="cap-w hl">depan</span></div>
+      <div id="cap-g6" class="cap-g"><span id="cap-w12" class="cap-w">Medical</span><span id="cap-w13" class="cap-w">card</span></div>
+      <div id="cap-g7" class="cap-g"><span id="cap-w14" class="cap-w">Banyak</span><span id="cap-w15" class="cap-w hl">perubahan</span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // word start times in film seconds (re-timed to the cut, from per-island whisper large-v3)
+      const groups = [
+        ["#cap-g1", 0.12, 1.19, [["#cap-w1", 0.15], ["#cap-w2", 0.49], ["#cap-w3", 0.77]]],
+        ["#cap-g2", 1.18, 1.9, [["#cap-w4", 1.2]]],
+        ["#cap-g3", 2.66, 3.45, [["#cap-w5", 2.7]]],
+        ["#cap-g4", 3.47, 4.12, [["#cap-w6", 3.48], ["#cap-w7", 3.64], ["#cap-w8", 3.72], ["#cap-w9", 3.92]]],
+        ["#cap-g5", 4.12, 4.75, [["#cap-w10", 4.14], ["#cap-w11", 4.34]]],
+        ["#cap-g6", 4.77, 5.36, [["#cap-w12", 4.78], ["#cap-w13", 5.06]]],
+        ["#cap-g7", 5.36, 6.3, [["#cap-w14", 5.37], ["#cap-w15", 5.76]]],
+      ];
+      groups.forEach(([g, s, e, words]) => {
+        tl.set(g, { opacity: 1, visibility: "visible" }, s);
+        words.forEach(([w, t]) => {
+          tl.fromTo(w, { scale: 0.55, opacity: 0, y: 18 }, { scale: 1, opacity: 1, y: 0, duration: 0.12, ease: "back.out(2.4)" }, t);
+        });
+        tl.to(g, { opacity: 0, duration: 0.08, ease: "power2.in" }, e - 0.08);
+        tl.set(g, { opacity: 0, visibility: "hidden" }, e);
+      });
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>

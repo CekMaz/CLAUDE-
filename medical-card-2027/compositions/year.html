@@ -1,0 +1,62 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Archivo Black", sans-serif;
+    }
+    #yr-clip {
+      position: absolute;
+      inset: 0;
+    }
+    #yr-pre {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 690px;
+      text-align: center;
+      font-size: 64px;
+      line-height: 1;
+      color: #fff;
+      letter-spacing: 0.04em;
+      -webkit-text-stroke: 10px #0b0b0f;
+      paint-order: stroke fill;
+    }
+    /* in front of the speaker, chest height, under his face */
+    #yr-num {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 770px;
+      text-align: center;
+      font-size: 280px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--accent, #ffd23f);
+      -webkit-text-stroke: 6px #0b0b0f;
+      text-shadow: 0 20px 0 rgba(0, 0, 0, 0.3);
+      transform-origin: 50% 55%;
+    }
+  </style>
+  <div id="root" data-composition-id="year" data-width="1080" data-height="1920">
+    <div id="yr-clip" class="clip" data-start="0" data-duration="1.40" data-layout-allow-overlap>
+      <div id="yr-pre">PADA TAHUN</div>
+      <div id="yr-num" data-layout-allow-occlusion data-layout-bleed="true">2027</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // "pada tahun" (local 0.01–0.43) builds the question…
+      tl.fromTo("#yr-pre", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, 0.01);
+      tl.set("#yr-num", { opacity: 0 }, 0);
+      // …"2027" slams in behind his head on the word (local 0.43)
+      tl.fromTo("#yr-num", { opacity: 0, scale: 2.4, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.16, ease: "power4.out" }, 0.42);
+      // whip up and out into the outro
+      tl.to(["#yr-num", "#yr-pre"], { y: -900, opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 1.16);
+      tl.set("#yr-clip", { opacity: 0 }, 1.39);
+      window.__timelines["year"] = tl;
+    })();
+  </script>
+</template>

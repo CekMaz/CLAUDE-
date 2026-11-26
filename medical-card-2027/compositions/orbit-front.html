@@ -1,0 +1,144 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+      font-family: "Archivo Black", sans-serif;
+    }
+    .orb-card {
+      position: absolute;
+      left: -130px;
+      top: -82px;
+      width: 260px;
+      height: 164px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #12c2b3 0%, #1565d8 70%, #2a3fd1 100%);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+      color: #fff;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .orb-shine {
+      position: absolute;
+      inset: -40px;
+      background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.35) 50%, transparent 62%);
+    }
+    .orb-cross {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .orb-cross::before,
+    .orb-cross::after {
+      content: "";
+      position: absolute;
+      background: var(--hot, #ff3b3b);
+      border-radius: 3px;
+    }
+    .orb-cross::before {
+      left: 18px;
+      top: 8px;
+      width: 10px;
+      height: 30px;
+    }
+    .orb-cross::after {
+      left: 8px;
+      top: 18px;
+      width: 30px;
+      height: 10px;
+    }
+    .orb-chip {
+      position: absolute;
+      right: 20px;
+      top: 22px;
+      width: 40px;
+      height: 30px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #f8e08e, #c9a227);
+    }
+    .orb-label {
+      position: absolute;
+      left: 18px;
+      top: 78px;
+      font-size: 27px;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+    .orb-year {
+      position: absolute;
+      left: 18px;
+      bottom: 14px;
+      font-family: "Space Mono", monospace;
+      font-size: 20px;
+      letter-spacing: 0.18em;
+      opacity: 0.9;
+    }
+  </style>
+  <div id="root" data-composition-id="orbit-front" data-width="1080" data-height="1920"
+    data-layout-allow-overflow>
+    <div id="of-clip" class="clip" data-start="0" data-duration="1.55" style="position:absolute;inset:0" data-layout-allow-overflow>
+    <div id="of-card" class="orb-card" data-layout-allow-overflow data-layout-ignore>
+      <div class="orb-shine" id="of-shine"></div>
+      <div class="orb-cross"></div>
+      <div class="orb-chip"></div>
+      <div class="orb-label">MEDICAL CARD</div>
+      <div class="orb-year">•••• 2027</div>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const layer = "front";
+      const isFront = layer !== "back";
+      const tl = gsap.timeline({ paused: true });
+      const card = "#of-card";
+
+      // orbit around his head: tilted ellipse, front half = lower arc (passes over the matte)
+      const CX = 490, CY = 560, RX = 330, RY = 105, TILT = (-10 * Math.PI) / 180;
+      const T0 = 0.03, DUR = 0.66, N = 30;
+      const TH0 = Math.PI / 4 - 2 * Math.PI, TH1 = Math.PI / 4; // one full revolution, lands front-right
+      const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - 2 * (1 - p) * (1 - p));
+      const at = (th) => {
+        const ox = RX * Math.cos(th), oy = RY * Math.sin(th);
+        const z = Math.sin(th);
+        return {
+          x: CX + ox * Math.cos(TILT) - oy * Math.sin(TILT),
+          y: CY + ox * Math.sin(TILT) + oy * Math.cos(TILT),
+          scale: 0.72 + 0.28 * z,
+          rotationY: (th * 180) / Math.PI * -0.16,
+          z,
+        };
+      };
+
+      const p0 = at(TH0);
+      tl.set(card, { x: p0.x, y: p0.y, scale: 0, rotationY: p0.rotationY, transformPerspective: 900 }, 0);
+      tl.to(card, { scale: p0.scale, duration: 0.03, ease: "none" }, 0);
+      let front = p0.z > 0;
+      tl.set(card, { opacity: front === isFront ? 1 : 0 }, 0);
+      for (let i = 1; i <= N; i++) {
+        const p = at(TH0 + (TH1 - TH0) * ease(i / N));
+        const t = T0 + ((i - 1) / N) * DUR;
+        tl.to(card, { x: p.x, y: p.y, scale: p.scale, rotationY: p.rotationY, duration: DUR / N, ease: "none" }, t);
+        const f = p.z > 0;
+        if (f !== front) {
+          tl.set(card, { opacity: f === isFront ? 1 : 0 }, t);
+          front = f;
+        }
+      }
+      const land = T0 + DUR;
+      // settle: straighten, slight tilt, shine sweep
+      tl.to(card, { rotationY: 0, rotation: -8, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, land);
+      tl.fromTo("#of-shine", { x: -260 }, { x: 260, duration: 0.45, ease: "power2.inOut" }, land + 0.05);
+      // exit with the cut into "pada tahun"
+      tl.to(card, { scale: 0.2, opacity: 0, x: "+=120", y: "-=80", duration: 0.16, ease: "power3.in" }, 1.36);
+      tl.set(card, { opacity: 0 }, 1.53);
+
+      window.__timelines[isFront ? "orbit-front" : "orbit-back"] = tl;
+    })();
+  </script>
+</template>

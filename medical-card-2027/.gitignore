@@ -1,0 +1,4 @@
+.hyperframes/
+.transcode-cache/
+node_modules/
+renders/

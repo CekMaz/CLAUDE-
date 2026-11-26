@@ -1,0 +1,42 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0b0f;
+    }
+    /* the zoom rig: scale 3 around the centre = the centre clone fills the frame exactly */
+    #cw-rig {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+    }
+    #cw-video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+      object-fit: cover;
+    }
+  </style>
+  <div id="root" data-composition-id="clonewall" data-width="1080" data-height="1920">
+    <!-- 3x3 wall of the same take (src 8.08-9.06, pre-tiled): "korang" = all of you -->
+    <div id="cw-rig">
+      <video id="cw-video" class="clip" src="assets/clonewall.mp4" muted playsinline
+        data-start="0" data-duration="0.98" data-media-start="0"></video>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // the cut lands on the centre clone at full frame, then the camera pulls out to reveal the wall
+      tl.fromTo("#cw-rig", { scale: 3, rotation: 0 }, { scale: 1, rotation: -2, duration: 0.24, ease: "expo.out" }, 0);
+      // "tahun depan": push back into the centre clone, which becomes the next shot
+      tl.to("#cw-rig", { scale: 3, rotation: 0, duration: 0.3, ease: "power3.inOut" }, 0.64);
+      tl.set("#root", { opacity: 0 }, 0.96);
+      window.__timelines["clonewall"] = tl;
+    })();
+  </script>
+</template>
