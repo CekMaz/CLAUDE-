@@ -16,24 +16,48 @@
       #cam { filter: contrast(1.06) saturate(1.12); }
       .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .vignette { position: absolute; inset: 0; z-index: 5; pointer-events: none;
-        background: radial-gradient(ellipse at 62% 40%, rgba(0,0,0,0) 50%, rgba(0,0,0,.35) 100%); }
+        background: radial-gradient(ellipse at 55% 40%, rgba(0,0,0,0) 50%, rgba(0,0,0,.3) 100%); }
       .cap { position: absolute; left: 50px; right: 50px; top: 1420px; z-index: 20; text-align: center;
         font-weight: 900; font-size: 58px; line-height: 1.1; text-transform: uppercase; letter-spacing: -1px; }
       .cap .w { display: inline-block; margin: 0 6px; color: #fff; -webkit-text-stroke: 11px #000; paint-order: stroke fill;
         text-shadow: 0 8px 16px rgba(0,0,0,.45); }
       .cap .w.k { color: #FFD400; }
 
-      /* clone wall hook */
+      /* hook title */
+      #hook { position: absolute; left: 0; right: 0; top: 170px; z-index: 13; text-align: center; font-family: "Anton"; line-height: 1; }
+      #hook .h1 { display: inline-block; font-size: 66px; color: #fff; background: #111; padding: 12px 26px 8px; border-radius: 16px; }
+      #hook .h2 { display: block; margin-top: 12px; }
+      #hook .h2 b { display: inline-block; font-weight: 400; font-size: 92px; color: #111; background: #FFD400; padding: 12px 26px 4px; border-radius: 18px;
+        box-shadow: 0 14px 34px rgba(0,0,0,.35); white-space: nowrap; }
+      #tepi { position: absolute; left: 560px; top: 560px; z-index: 14; }
+      #tepi .bub { position: relative; display: inline-block; padding: 14px 26px; background: #fff; color: #111; border-radius: 30px; border: 5px solid #111;
+        font-weight: 900; font-size: 46px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+      #tepi .bub:after { content: ""; position: absolute; left: 40px; bottom: -30px; border: 16px solid transparent; border-top: 22px solid #111; }
+
+      /* medical card + 2027 */
+      #med { position: absolute; right: 50px; top: 330px; z-index: 14; }
+      #med .card { width: 380px; height: 236px; border-radius: 26px; padding: 22px 26px; text-align: left;
+        background: linear-gradient(135deg, #0EA5E9, #2563EB 55%, #1E3A8A); box-shadow: 0 18px 40px rgba(0,0,0,.4); transform: rotate(-6deg); }
+      #med .chip { width: 64px; height: 48px; border-radius: 10px; background: linear-gradient(135deg, #FDE68A, #D4A017); }
+      #med .cross { position: absolute; right: 26px; top: 22px; width: 58px; height: 58px; border-radius: 14px; background: #fff; }
+      #med .cross:before, #med .cross:after { content: ""; position: absolute; background: #EF4444; border-radius: 3px; }
+      #med .cross:before { left: 23px; top: 10px; width: 12px; height: 38px; }
+      #med .cross:after { left: 10px; top: 23px; width: 38px; height: 12px; }
+      #med .ttl { margin-top: 40px; font-family: "Anton"; font-size: 54px; line-height: 1; letter-spacing: 1px; }
+      #med .sub { margin-top: 8px; font-weight: 800; font-size: 22px; letter-spacing: 4px; opacity: .85; }
+      #yr { position: absolute; left: 0; right: 0; top: 80px; z-index: 14; text-align: center; }
+      #yr .box { display: inline-flex; align-items: flex-start; font-family: "Anton"; font-size: 150px; line-height: 1; color: #111; background: #FFD400;
+        padding: 10px 30px 0; border-radius: 22px; box-shadow: 0 16px 36px rgba(0,0,0,.35); height: 170px; overflow: hidden; }
+      #yr .wheel { display: inline-block; height: 150px; overflow: hidden; }
+      #yr .wheel .col { display: flex; flex-direction: column; }
+      #yr .wheel .col div { height: 150px; }
+
+      /* clone wall transition */
       #wall { position: absolute; inset: 0; z-index: 12; background: #000; }
       #wallInner { position: absolute; inset: 0; transform-origin: 50% 50%; }
       .tile { position: absolute; width: 360px; height: 640px; overflow: hidden; border: 6px solid #000; border-radius: 22px; }
       .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .tile .tb { opacity: 0; }
-      #hook { position: absolute; left: 0; right: 0; top: 760px; z-index: 13; text-align: center; font-family: "Anton"; line-height: 1; }
-      #hook .h1 { display: inline-block; font-size: 64px; background: #111; padding: 10px 28px; border-radius: 16px; }
-      #hook .h2 { display: block; margin-top: 14px; }
-      #hook .h2 b { display: inline-block; font-weight: 400; font-size: 100px; color: #111; background: #FFD400; padding: 12px 26px 4px; white-space: nowrap; border-radius: 20px;
-        box-shadow: 0 16px 40px rgba(0,0,0,.6); }
 
       /* headline wall */
       #hwall { position: absolute; inset: 0; z-index: 11; background: rgba(6,8,14,.62); overflow: hidden; }
@@ -64,34 +88,49 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="5.901" data-width="1080" data-height="1920" data-fps="30">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="11.8" data-width="1080" data-height="1920" data-fps="30">
       <div id="shake"><div id="cam">
-      <!-- V1: HOOK: dia minum (ditutup clone wall + tajuk) | src(orig) 1.65-3.05 -->
-      <video id="v_V1" class="clip vid" src="assets/footage_fast.mp4" playsinline data-has-audio="true" data-volume="0.35" data-fade-in="0.03" data-fade-out="0.03" data-start="0.0" data-duration="1.273" data-media-start="1.5" data-track-index="0"></video>
-      <!-- V2: Tapi guys, kalau korang nak tahu apa perubahan besar tu | src(orig) 3.05-6.30 -->
-      <video id="v_V2" class="clip vid" src="assets/footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="1.273" data-duration="2.955" data-media-start="2.773" data-track-index="0"></video>
-      <!-- V3: DM saya sekarang (+ senyum). Jeda 6.30-6.86 &amp; pan kamera 8.75+ dibuang | src(orig) 6.86-8.70 -->
-      <video id="v_V3" class="clip vid" src="assets/footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="4.228" data-duration="1.673" data-media-start="6.236" data-track-index="0"></video>
+      <!-- A: IMG_6547: 'tepi tepi tepi' + keluar pintu + 'ok guys' | src(orig) 3.90-7.45 -->
+      <video id="v_A" class="clip vid" src="assets/p1_footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="0.0" data-duration="3.227" data-media-start="3.545" data-track-index="0"></video>
+      <!-- B: korang nak tahu tak, tahun depan | src(orig) 8.05-9.42 -->
+      <video id="v_B" class="clip vid" src="assets/p1_footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="3.227" data-duration="1.245" data-media-start="7.318" data-track-index="0"></video>
+      <!-- C: medical card banyak perubahan | src(orig) 10.15-11.72 -->
+      <video id="v_C" class="clip vid" src="assets/p1_footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="4.472" data-duration="1.427" data-media-start="9.227" data-track-index="0"></video>
+      <!-- D: pada tahun 2027  (rakaman 'dah' di hujung dibuang) | src(orig) 12.25-13.65 -->
+      <video id="v_D" class="clip vid" src="assets/p1_footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="5.899" data-duration="1.273" data-media-start="11.136" data-track-index="0"></video>
+      <!-- E: IMG_6550: Tapi guys, kalau korang nak tahu apa perubahan besar tu | src(orig) 3.05-6.30 -->
+      <video id="v_E" class="clip vid" src="assets/footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="7.172" data-duration="2.955" data-media-start="2.773" data-track-index="0"></video>
+      <!-- F: DM saya sekarang (+ senyum) | src(orig) 6.86-8.70 -->
+      <video id="v_F" class="clip vid" src="assets/footage_fast.mp4" playsinline data-has-audio="true" data-volume="1.0" data-fade-in="0.03" data-fade-out="0.03" data-start="10.127" data-duration="1.673" data-media-start="6.236" data-track-index="0"></video>
       </div></div>
       <div class="vignette"></div>
 
-      <!-- HOOK: clone wall + headline, zooms into the live shot -->
-      <div id="wall" class="clip" data-start="0" data-duration="1.313" data-track-index="2"><div id="wallInner">
-      <div class="tile" style="left:0px;top:0px"><img class="ta" src="assets/img/s_0.1.jpg" alt=""><img class="tb" src="assets/img/s_4.4.jpg" alt=""></div>
-      <div class="tile" style="left:360px;top:0px"><img class="ta" src="assets/img/s_1.9.jpg" alt=""><img class="tb" src="assets/img/s_5.0.jpg" alt=""></div>
-      <div class="tile" style="left:720px;top:0px"><img class="ta" src="assets/img/s_2.4.jpg" alt=""><img class="tb" src="assets/img/s_6.0.jpg" alt=""></div>
-      <div class="tile" style="left:0px;top:640px"><img class="ta" src="assets/img/s_3.4.jpg" alt=""><img class="tb" src="assets/img/s_7.2.jpg" alt=""></div>
-      <div class="tile" style="left:360px;top:640px"><img class="ta" src="assets/img/s_4.4.jpg" alt=""><img class="tb" src="assets/img/s_8.2.jpg" alt=""></div>
-      <div class="tile" style="left:720px;top:640px"><img class="ta" src="assets/img/s_5.0.jpg" alt=""><img class="tb" src="assets/img/s_0.1.jpg" alt=""></div>
-      <div class="tile" style="left:0px;top:1280px"><img class="ta" src="assets/img/s_6.0.jpg" alt=""><img class="tb" src="assets/img/s_1.9.jpg" alt=""></div>
-      <div class="tile" style="left:360px;top:1280px"><img class="ta" src="assets/img/s_7.2.jpg" alt=""><img class="tb" src="assets/img/s_2.4.jpg" alt=""></div>
-      <div class="tile" style="left:720px;top:1280px"><img class="ta" src="assets/img/s_8.2.jpg" alt=""><img class="tb" src="assets/img/s_3.4.jpg" alt=""></div>
+      <!-- HOOK -->
+      <div id="hook" class="clip" data-start="0" data-duration="2.423" data-track-index="2">
+        <span class="h1">MEDICAL CARD 2027</span><span class="h2"><b>BANYAK PERUBAHAN?!</b></span></div>
+      <div id="tepi" class="clip" data-start="0.382" data-duration="1.182" data-track-index="2"><div class="bub">TEPI, TEPI, TEPI!</div></div>
+
+      <!-- MEDICAL CARD + 2027 -->
+      <div id="med" class="clip" data-start="4.486" data-duration="1.413" data-track-index="2"><div class="card">
+        <div class="chip"></div><div class="cross"></div><div class="ttl">MEDICAL CARD</div><div class="sub">TAHUN DEPAN</div></div></div>
+      <div id="yr" class="clip" data-start="5.899" data-duration="1.073" data-track-index="2">
+        <div class="box"><span>202</span><span class="wheel"><div class="col"><div>4</div><div>5</div><div>6</div><div>7</div></div></span></div></div>
+
+      <!-- CLONE WALL transition (pintu kafe -> meja) -->
+      <div id="wall" class="clip" data-start="6.922" data-duration="0.67" data-track-index="2"><div id="wallInner">
+      <div class="tile" style="left:0px;top:0px"><img class="ta" src="assets/img/p1_2.0.jpg" alt=""><img class="tb" src="assets/img/s_6.0.jpg" alt=""></div>
+      <div class="tile" style="left:360px;top:0px"><img class="ta" src="assets/img/s_1.9.jpg" alt=""><img class="tb" src="assets/img/p1_10.6.jpg" alt=""></div>
+      <div class="tile" style="left:720px;top:0px"><img class="ta" src="assets/img/p1_9.0.jpg" alt=""><img class="tb" src="assets/img/s_4.4.jpg" alt=""></div>
+      <div class="tile" style="left:0px;top:640px"><img class="ta" src="assets/img/s_5.0.jpg" alt=""><img class="tb" src="assets/img/p1_12.8.jpg" alt=""></div>
+      <div class="tile" style="left:360px;top:640px"><img class="ta" src="assets/img/s_3.4.jpg" alt=""><img class="tb" src="assets/img/s_3.4.jpg" alt=""></div>
+      <div class="tile" style="left:720px;top:640px"><img class="ta" src="assets/img/p1_12.8.jpg" alt=""><img class="tb" src="assets/img/s_0.1.jpg" alt=""></div>
+      <div class="tile" style="left:0px;top:1280px"><img class="ta" src="assets/img/p1_6.0.jpg" alt=""><img class="tb" src="assets/img/s_8.2.jpg" alt=""></div>
+      <div class="tile" style="left:360px;top:1280px"><img class="ta" src="assets/img/s_7.2.jpg" alt=""><img class="tb" src="assets/img/p1_9.0.jpg" alt=""></div>
+      <div class="tile" style="left:720px;top:1280px"><img class="ta" src="assets/img/p1_10.6.jpg" alt=""><img class="tb" src="assets/img/s_2.4.jpg" alt=""></div>
       </div></div>
-      <div id="hook" class="clip" data-start="0" data-duration="1.223" data-track-index="2">
-        <span class="h1">ADA</span><span class="h2"><b>PERUBAHAN BESAR!</b></span></div>
 
       <!-- HEADLINE WALL -->
-      <div id="hwall" class="clip" data-start="3.282" data-duration="0.946" data-track-index="2">
+      <div id="hwall" class="clip" data-start="9.181" data-duration="0.946" data-track-index="2">
       <div class="hrow dim">PERUBAHAN BESAR &#8226; PERUBAHAN BESAR &#8226; PERUBAHAN BESAR</div>
       <div class="hrow outline">PERUBAHAN BESAR &#8226; PERUBAHAN BESAR &#8226; PERUBAHAN BESAR</div>
       <div class="hrow dim">PERUBAHAN BESAR &#8226; PERUBAHAN BESAR &#8226; PERUBAHAN BESAR</div>
@@ -105,8 +144,8 @@
       <div class="hrow dim">PERUBAHAN BESAR &#8226; PERUBAHAN BESAR &#8226; PERUBAHAN BESAR</div>
       </div>
 
-      <!-- ORBIT -->
-      <div id="orbit" class="clip" data-start="4.265" data-duration="1.018" data-track-index="2"><div id="orbitPos"><div id="ring">
+      <!-- ORBIT + DM CTA -->
+      <div id="orbit" class="clip" data-start="10.164" data-duration="1.018" data-track-index="2"><div id="orbitPos"><div id="ring">
           <div class="oi" style="transform: rotateY(0.0deg) translateZ(330px)">DM SAYA</div>
           <div class="oi" style="transform: rotateY(45.0deg) translateZ(330px)">&#9679;</div>
           <div class="oi" style="transform: rotateY(90.0deg) translateZ(330px)">SEKARANG</div>
@@ -116,43 +155,59 @@
           <div class="oi" style="transform: rotateY(270.0deg) translateZ(330px)">SEKARANG</div>
           <div class="oi" style="transform: rotateY(315.0deg) translateZ(330px)">&#9679;</div>
       </div></div></div>
-
-      <!-- DM CTA -->
-      <div id="cta" class="clip" data-start="4.245" data-duration="1.656" data-track-index="2">
+      <div id="cta" class="clip" data-start="10.144" data-duration="1.656" data-track-index="2">
         <div class="btn"><svg viewBox="0 0 24 24" width="44" height="44"><path d="M22 2 11 13" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M22 2 15 22 11 13 2 9Z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg><span>DM SAYA SEKARANG</span><div class="ripple"></div></div>
         <div class="hand"></div></div>
 
-    <div id="cap0" class="clip cap" data-start="1.318" data-duration="0.382" data-track-index="3"><span class="w">Tapi</span> <span class="w k">guys,</span></div>
-    <div id="cap1" class="clip cap" data-start="1.7" data-duration="1.327" data-track-index="3"><span class="w">kalau</span> <span class="w">korang</span> <span class="w">nak</span> <span class="w">tahu</span></div>
-    <div id="cap2" class="clip cap" data-start="3.027" data-duration="1.238" data-track-index="3"><span class="w">apa</span> <span class="w k">perubahan</span> <span class="w k">besar</span> <span class="w">tu</span></div>
-    <div id="cap3" class="clip cap" data-start="4.265" data-duration="1.636" data-track-index="3"><span class="w k">DM</span> <span class="w">saya</span> <span class="w k">sekarang!</span></div>
+    <div id="cap0" class="clip cap" data-start="2.473" data-duration="0.818" data-track-index="3"><span class="w">Ok</span> <span class="w k">guys!</span></div>
+    <div id="cap1" class="clip cap" data-start="3.291" data-duration="0.563" data-track-index="3"><span class="w">Korang</span> <span class="w">nak</span> <span class="w">tahu</span> <span class="w">tak,</span></div>
+    <div id="cap2" class="clip cap" data-start="3.854" data-duration="0.682" data-track-index="3"><span class="w k">tahun</span> <span class="w k">depan</span></div>
+    <div id="cap3" class="clip cap" data-start="4.536" data-duration="0.491" data-track-index="3"><span class="w k">medical</span> <span class="w k">card</span></div>
+    <div id="cap4" class="clip cap" data-start="5.027" data-duration="0.936" data-track-index="3"><span class="w">banyak</span> <span class="w k">perubahan</span></div>
+    <div id="cap5" class="clip cap" data-start="5.963" data-duration="1.254" data-track-index="3"><span class="w">pada</span> <span class="w k">tahun</span> <span class="w k">2027</span></div>
+    <div id="cap6" class="clip cap" data-start="7.217" data-duration="0.382" data-track-index="3"><span class="w">Tapi</span> <span class="w k">guys,</span></div>
+    <div id="cap7" class="clip cap" data-start="7.599" data-duration="1.327" data-track-index="3"><span class="w">kalau</span> <span class="w">korang</span> <span class="w">nak</span> <span class="w">tahu</span></div>
+    <div id="cap8" class="clip cap" data-start="8.926" data-duration="1.238" data-track-index="3"><span class="w">apa</span> <span class="w k">perubahan</span> <span class="w k">besar</span> <span class="w">tu</span></div>
+    <div id="cap9" class="clip cap" data-start="10.164" data-duration="1.636" data-track-index="3"><span class="w k">DM</span> <span class="w">saya</span> <span class="w k">sekarang!</span></div>
 
-      <div id="flash" class="clip" data-start="0" data-duration="5.901" data-track-index="4"></div>
-      <div id="progress" class="clip" data-start="0" data-duration="5.901" data-track-index="4"></div>
-      <audio id="music" src="assets/sfx/music.wav" data-start="0" data-duration="5.901" data-volume="0.1" data-fade-out="0.3" data-track-index="5"></audio>
-    <audio id="sfx0" src="assets/sfx/impact.wav" data-start="0" data-duration="1.4" data-volume="0.8" data-track-index="6"></audio>
-    <audio id="sfx1" src="assets/sfx/glitch.wav" data-start="0.02" data-duration="0.45" data-volume="0.4" data-track-index="7"></audio>
-    <audio id="sfx2" src="assets/sfx/riser.wav" data-start="0.1" data-duration="1.6" data-volume="0.3" data-track-index="8"></audio>
-    <audio id="sfx3" src="assets/sfx/tick.wav" data-start="0.42" data-duration="0.05" data-volume="0.45" data-track-index="9"></audio>
-    <audio id="sfx4" src="assets/sfx/tick.wav" data-start="0.52" data-duration="0.05" data-volume="0.45" data-track-index="10"></audio>
-    <audio id="sfx5" src="assets/sfx/tick.wav" data-start="0.62" data-duration="0.05" data-volume="0.45" data-track-index="6"></audio>
-    <audio id="sfx6" src="assets/sfx/tick.wav" data-start="0.72" data-duration="0.05" data-volume="0.45" data-track-index="7"></audio>
-    <audio id="sfx7" src="assets/sfx/whoosh.wav" data-start="0.973" data-duration="0.55" data-volume="0.6" data-track-index="8"></audio>
-    <audio id="sfx8" src="assets/sfx/pop.wav" data-start="1.445" data-duration="0.16" data-volume="0.4" data-track-index="9"></audio>
-    <audio id="sfx9" src="assets/sfx/whoosh.wav" data-start="3.182" data-duration="0.55" data-volume="0.45" data-track-index="10"></audio>
-    <audio id="sfx10" src="assets/sfx/impact.wav" data-start="3.282" data-duration="1.4" data-volume="0.5" data-track-index="6"></audio>
-    <audio id="sfx11" src="assets/sfx/whoosh_small.wav" data-start="4.128" data-duration="0.28" data-volume="0.45" data-track-index="7"></audio>
-    <audio id="sfx12" src="assets/sfx/ding2.wav" data-start="4.265" data-duration="1.2" data-volume="0.5" data-track-index="8"></audio>
-    <audio id="sfx13" src="assets/sfx/pop.wav" data-start="4.415" data-duration="0.16" data-volume="0.4" data-track-index="9"></audio>
-    <audio id="sfx14" src="assets/sfx/tick.wav" data-start="4.933" data-duration="0.05" data-volume="0.6" data-track-index="10"></audio>
-    <audio id="sfx15" src="assets/sfx/check.wav" data-start="4.983" data-duration="0.32" data-volume="0.45" data-track-index="6"></audio>
-    <audio id="sfx16" src="assets/sfx/whoosh.wav" data-start="5.551" data-duration="0.35" data-volume="0.5" data-track-index="7"></audio>
+      <div id="flash" class="clip" data-start="0" data-duration="11.8" data-track-index="4"></div>
+      <div id="progress" class="clip" data-start="0" data-duration="11.8" data-track-index="4"></div>
+      <audio id="music" src="assets/sfx/music.wav" data-start="0" data-duration="11.8" data-volume="0.09" data-fade-out="0.3" data-track-index="5"></audio>
+    <audio id="sfx0" src="assets/sfx/whoosh.wav" data-start="0" data-duration="0.55" data-volume="0.5" data-track-index="6"></audio>
+    <audio id="sfx1" src="assets/sfx/impact.wav" data-start="0.08" data-duration="1.4" data-volume="0.6" data-track-index="7"></audio>
+    <audio id="sfx2" src="assets/sfx/pop.wav" data-start="0.32" data-duration="0.16" data-volume="0.45" data-track-index="8"></audio>
+    <audio id="sfx3" src="assets/sfx/pop.wav" data-start="0.382" data-duration="0.16" data-volume="0.5" data-track-index="9"></audio>
+    <audio id="sfx4" src="assets/sfx/pop.wav" data-start="0.6" data-duration="0.16" data-volume="0.5" data-track-index="10"></audio>
+    <audio id="sfx5" src="assets/sfx/pop.wav" data-start="0.837" data-duration="0.16" data-volume="0.55" data-track-index="6"></audio>
+    <audio id="sfx6" src="assets/sfx/whoosh_small.wav" data-start="2.373" data-duration="0.28" data-volume="0.45" data-track-index="7"></audio>
+    <audio id="sfx7" src="assets/sfx/ding1.wav" data-start="2.473" data-duration="1.2" data-volume="0.3" data-track-index="8"></audio>
+    <audio id="sfx8" src="assets/sfx/whoosh_small.wav" data-start="3.804" data-duration="0.28" data-volume="0.45" data-track-index="9"></audio>
+    <audio id="sfx9" src="assets/sfx/whoosh.wav" data-start="4.386" data-duration="0.55" data-volume="0.45" data-track-index="10"></audio>
+    <audio id="sfx10" src="assets/sfx/check.wav" data-start="4.736" data-duration="0.32" data-volume="0.45" data-track-index="6"></audio>
+    <audio id="sfx11" src="assets/sfx/tick.wav" data-start="6.045" data-duration="0.05" data-volume="0.5" data-track-index="7"></audio>
+    <audio id="sfx12" src="assets/sfx/tick.wav" data-start="6.145" data-duration="0.05" data-volume="0.5" data-track-index="8"></audio>
+    <audio id="sfx13" src="assets/sfx/tick.wav" data-start="6.245" data-duration="0.05" data-volume="0.5" data-track-index="9"></audio>
+    <audio id="sfx14" src="assets/sfx/impact.wav" data-start="6.345" data-duration="1.4" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx15" src="assets/sfx/glitch.wav" data-start="6.922" data-duration="0.45" data-volume="0.4" data-track-index="6"></audio>
+    <audio id="sfx16" src="assets/sfx/shutter.wav" data-start="6.952" data-duration="0.22" data-volume="0.5" data-track-index="7"></audio>
+    <audio id="sfx17" src="assets/sfx/tick.wav" data-start="7.222" data-duration="0.05" data-volume="0.45" data-track-index="8"></audio>
+    <audio id="sfx18" src="assets/sfx/tick.wav" data-start="7.322" data-duration="0.05" data-volume="0.45" data-track-index="9"></audio>
+    <audio id="sfx19" src="assets/sfx/whoosh.wav" data-start="7.292" data-duration="0.55" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx20" src="assets/sfx/pop.wav" data-start="7.344" data-duration="0.16" data-volume="0.35" data-track-index="6"></audio>
+    <audio id="sfx21" src="assets/sfx/whoosh.wav" data-start="9.081" data-duration="0.55" data-volume="0.45" data-track-index="7"></audio>
+    <audio id="sfx22" src="assets/sfx/impact.wav" data-start="9.181" data-duration="1.4" data-volume="0.5" data-track-index="8"></audio>
+    <audio id="sfx23" src="assets/sfx/whoosh_small.wav" data-start="10.027" data-duration="0.28" data-volume="0.45" data-track-index="9"></audio>
+    <audio id="sfx24" src="assets/sfx/ding2.wav" data-start="10.164" data-duration="1.2" data-volume="0.5" data-track-index="10"></audio>
+    <audio id="sfx25" src="assets/sfx/pop.wav" data-start="10.314" data-duration="0.16" data-volume="0.4" data-track-index="6"></audio>
+    <audio id="sfx26" src="assets/sfx/tick.wav" data-start="10.832" data-duration="0.05" data-volume="0.6" data-track-index="7"></audio>
+    <audio id="sfx27" src="assets/sfx/check.wav" data-start="10.882" data-duration="0.32" data-volume="0.45" data-track-index="8"></audio>
+    <audio id="sfx28" src="assets/sfx/whoosh.wav" data-start="11.45" data-duration="0.35" data-volume="0.5" data-track-index="9"></audio>
     </div>
 
     <script>
-      const B = {"DUR": 5.901, "V2": 1.273, "V3": 4.228, "GUYS": 1.445, "KALAU": 1.7, "PERUBAHAN": 3.282, "DM": 4.265, "SEKARANG": 4.628, "SMILE": 5.083, "WALL_OUT": 1.313};
-      const CAM = [[0.0, "62% 36%", 1.0, []], [1.273, "62% 36%", 1.0, [[1.445, 0.12, 1.12, "power4.out"], [1.7, 1.582, 1.2, "none"]]], [4.228, "62% 36%", 1.15, [[4.265, 0.12, 1.35, "power4.out"], [5.083, 0.5, 1.12, "power2.inOut"], [5.601, 0.3, 1.4, "power3.in"]]]];
-      const CAPW = [[1.318, 1.445], [1.7, 2.355, 2.7, 2.773], [3.027, 3.282, 3.736, 3.918], [4.265, 4.41, 4.628]];
+      const B = {"DUR": 11.8, "A": 0.0, "B": 3.227, "C": 4.472, "D": 5.899, "E": 7.172, "F": 10.127, "TEPI": 0.382, "TEPI_END": 1.564, "OKGUYS": 2.473, "TAHUN": 3.854, "MED": 4.536, "Y2027": 6.345, "GUYS": 7.344, "KALAU": 7.599, "PERUBAHAN": 9.181, "DM": 10.164, "SMILE": 10.982, "WALL_IN": 6.922, "WALL_OUT": 7.592};
+      const CAM = [[0.0, "60% 42%", 1.0, [[0.0, 2.473, 1.08, "none"], [2.473, 0.12, 1.16, "power4.out"]]], [3.227, "48% 28%", 1.0, [[3.854, 0.12, 1.12, "power4.out"]]], [4.472, "48% 28%", 1.06, [[4.536, 1.427, 1.14, "none"]]], [5.899, "46% 26%", 1.0, [[6.345, 0.12, 1.2, "power4.out"]]], [7.172, "62% 36%", 1.0, [[7.344, 0.12, 1.12, "power4.out"], [7.599, 1.581999999999999, 1.2, "none"]]], [10.127, "62% 36%", 1.15, [[10.164, 0.12, 1.35, "power4.out"], [10.982, 0.5, 1.12, "power2.inOut"], [11.5, 0.3, 1.4, "power3.in"]]]];
+      const CAPW = [[2.473, 2.682], [3.291, 3.382, 3.454, 3.691], [3.854, 4.054], [4.536, 4.754], [5.027, 5.354], [5.963, 6.072, 6.345], [7.217, 7.344], [7.599, 8.254, 8.599, 8.672], [8.926, 9.181, 9.635, 9.817], [10.164, 10.309, 10.527]];
       const tl = gsap.timeline({ paused: true });
       const qa = (s) => Array.from(document.querySelectorAll(s));
 
@@ -172,47 +227,56 @@
         }
         tl.set("#shake", { x: 0, y: 0 }, at + n * 0.033);
       }
-      shake(0, 16, 0.3); shake(B.PERUBAHAN, 12, 0.25); shake(B.DM, 10, 0.2);
+      shake(0.08, 14, 0.25); shake(B.Y2027, 12, 0.25); shake(B.PERUBAHAN, 12, 0.25); shake(B.DM, 10, 0.2);
 
-      // flashes; ends white like it starts -> seamless loop
+      // flashes; end goes white like the start -> seamless loop
       tl.fromTo("#flash", { opacity: 0.85 }, { opacity: 0, duration: 0.22 }, 0);
-      for (const at of [B.WALL_OUT, B.PERUBAHAN, B.V3]) tl.fromTo("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.2, immediateRender: false }, at);
+      for (const at of [B.WALL_OUT, B.PERUBAHAN, B.F]) tl.fromTo("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.2, immediateRender: false }, at);
       tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.85, duration: 0.3, ease: "power2.in", immediateRender: false }, B.DUR - 0.3);
       tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: B.DUR, ease: "none" }, 0);
 
-      // clone wall: tiles pop in, flip, zoom through the centre tile into the live shot
+      // hook
+      tl.fromTo("#hook .h1", { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18, ease: "power3.out" }, 0.05);
+      tl.fromTo("#hook .h2 b", { scale: 2.4, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.2, ease: "back.out(2.2)" }, 0.25);
+      tl.to("#hook .h2 b", { scale: 1.05, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.6);
+      tl.to("#hook", { y: -40, opacity: 0, duration: 0.18 }, B.OKGUYS - 0.23);
+      [B.TEPI, B.TEPI + 0.22, B.TEPI + 0.45].forEach((t, i) =>
+        tl.fromTo("#tepi .bub", { scale: i ? 1.18 : 0, rotation: i % 2 ? 4 : -4 }, { scale: 1, rotation: 0, duration: 0.18, ease: "back.out(3)", immediateRender: !i }, t));
+
+      // medical card + 2027 roll
+      tl.fromTo("#med .card", { x: 500, rotation: 20, opacity: 0 }, { x: 0, rotation: -6, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, B.MED - 0.05);
+      tl.to("#med .card", { y: -10, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" }, B.MED + 0.4);
+      tl.fromTo("#yr .box", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, B.D);
+      tl.fromTo("#yr .col", { y: 0 }, { y: -450, duration: B.Y2027 - B.D, ease: "power2.inOut" }, B.D);
+      tl.fromTo("#yr .box", { scale: 1.3 }, { scale: 1, duration: 0.25, ease: "back.out(3)", immediateRender: false }, B.Y2027);
+
+      // clone wall transition
       const tiles = qa(".tile"), order = [4, 1, 3, 5, 7, 0, 2, 6, 8];
-      order.forEach((idx, n) => tl.fromTo(tiles[idx], { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.16, ease: "back.out(2)" }, n * 0.022));
+      order.forEach((idx, n) => tl.fromTo(tiles[idx], { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.14, ease: "back.out(2)" }, B.WALL_IN + n * 0.02));
       order.forEach((idx, n) => {
-        const at = 0.42 + n * 0.035, tile = tiles[idx];
-        tl.to(tile, { scaleX: 0, duration: 0.05 }, at);
-        tl.set(tile.querySelector(".tb"), { opacity: 1 }, at + 0.05);
-        tl.set(tile.querySelector(".ta"), { opacity: 0 }, at + 0.05);
-        tl.to(tile, { scaleX: 1, duration: 0.06 }, at + 0.05);
+        const at = B.WALL_IN + 0.28 + n * 0.025, tile = tiles[idx];
+        tl.to(tile, { scaleX: 0, duration: 0.04 }, at);
+        tl.set(tile.querySelector(".tb"), { opacity: 1 }, at + 0.04);
+        tl.set(tile.querySelector(".ta"), { opacity: 0 }, at + 0.04);
+        tl.to(tile, { scaleX: 1, duration: 0.05 }, at + 0.04);
       });
-      tl.fromTo("#wallInner", { scale: 1 }, { scale: 3.05, duration: 0.3, ease: "power3.in", immediateRender: false }, B.WALL_OUT - 0.32);
-      tl.to("#wall", { opacity: 0, duration: 0.06 }, B.WALL_OUT - 0.06);
-      tl.fromTo("#hook .h1", { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.16 }, 0.05);
-      tl.fromTo("#hook .h2 b", { scale: 2.4, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.2, ease: "back.out(2.2)" }, 0.14);
-      tl.to("#hook .h2 b", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.5);
-      tl.to("#hook", { scale: 1.6, opacity: 0, duration: 0.2, ease: "power2.in" }, B.V2 - 0.25);
+      tl.fromTo("#wallInner", { scale: 1 }, { scale: 3.05, duration: 0.24, ease: "power3.in", immediateRender: false }, B.WALL_OUT - 0.26);
+      tl.to("#wall", { opacity: 0, duration: 0.05 }, B.WALL_OUT - 0.05);
 
       // headline wall
       qa(".hrow").forEach((row, r) => {
         const dir = r % 2 ? 1 : -1;
         tl.set(row, { y: -60 + r * 190, xPercent: -50 }, B.PERUBAHAN);
         tl.fromTo(row, { x: dir * 700, opacity: 0 }, { x: dir * -60, opacity: 1, duration: 0.22 + Math.abs(r - 5) * 0.02, ease: "power3.out" }, B.PERUBAHAN + Math.abs(r - 5) * 0.025);
-        tl.to(row, { x: dir * -200, duration: B.V3 - B.PERUBAHAN - 0.25, ease: "none" }, B.PERUBAHAN + 0.25);
+        tl.to(row, { x: dir * -200, duration: B.F - B.PERUBAHAN - 0.25, ease: "none" }, B.PERUBAHAN + 0.25);
       });
       tl.fromTo(".hrow.solid", { scale: 1.6 }, { scale: 1.08, duration: 0.2, ease: "back.out(2)", immediateRender: false }, B.PERUBAHAN);
-      tl.to("#hwall", { opacity: 0, scale: 1.2, duration: 0.12 }, B.V3 - 0.12);
+      tl.to("#hwall", { opacity: 0, scale: 1.2, duration: 0.12 }, B.F - 0.12);
 
-      // orbit
+      // orbit + DM button
       tl.fromTo("#ring", { rotationX: -12, rotationY: 0 }, { rotationX: -12, rotationY: -300, duration: B.SMILE + 0.2 - B.DM, ease: "power1.inOut" }, B.DM);
       tl.fromTo("#orbitPos", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.8)" }, B.DM);
       tl.to("#orbitPos", { scale: 1.5, opacity: 0, duration: 0.18 }, B.SMILE + 0.02);
-
-      // DM button: pop, tap, ripple, pulse
       tl.fromTo("#cta .btn", { scale: 0, rotation: -8 }, { scale: 1, rotation: 0, duration: 0.25, ease: "back.out(2.4)" }, B.DM);
       tl.fromTo("#cta .hand", { x: 160, y: 140, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, B.SMILE - 0.5);
       tl.to("#cta .hand", { scale: 0.8, duration: 0.08, yoyo: true, repeat: 1 }, B.SMILE - 0.15);

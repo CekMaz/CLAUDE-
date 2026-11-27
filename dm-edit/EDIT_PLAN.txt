@@ -1,24 +1,43 @@
-DURATION 5.901s (asal 10.0s, suara x1.1)
+DURATION 11.8s (IMG_6547 + IMG_6550, suara x1.1)
 
 EDL (output -> source asal):
-   0.00- 1.27  src  1.65- 3.05  V1 HOOK: dia minum (ditutup clone wall + tajuk)
-   1.27- 4.23  src  3.05- 6.30  V2 Tapi guys, kalau korang nak tahu apa perubahan besar tu
-   4.23- 5.90  src  6.86- 8.70  V3 DM saya sekarang (+ senyum). Jeda 6.30-6.86 & pan kamera 8.75+ dibuang
+   0.00- 3.23  p1_footage_fast.mp4     3.90- 7.45  A IMG_6547: 'tepi tepi tepi' + keluar pintu + 'ok guys'
+   3.23- 4.47  p1_footage_fast.mp4     8.05- 9.42  B korang nak tahu tak, tahun depan
+   4.47- 5.90  p1_footage_fast.mp4    10.15-11.72  C medical card banyak perubahan
+   5.90- 7.17  p1_footage_fast.mp4    12.25-13.65  D pada tahun 2027  (rakaman 'dah' di hujung dibuang)
+   7.17-10.13  footage_fast.mp4        3.05- 6.30  E IMG_6550: Tapi guys, kalau korang nak tahu apa perubahan besar tu
+  10.13-11.80  footage_fast.mp4        6.86- 8.70  F DM saya sekarang (+ senyum)
 
 BEATS:
-  DUR        5.901
-  V2         1.273
-  V3         4.228
-  GUYS       1.445
-  KALAU      1.7
-  PERUBAHAN  3.282
-  DM         4.265
-  SEKARANG   4.628
-  SMILE      5.083
-  WALL_OUT   1.313
+  DUR        11.8
+  A          0.0
+  B          3.227
+  C          4.472
+  D          5.899
+  E          7.172
+  F          10.127
+  TEPI       0.382
+  TEPI_END   1.564
+  OKGUYS     2.473
+  TAHUN      3.854
+  MED        4.536
+  Y2027      6.345
+  GUYS       7.344
+  KALAU      7.599
+  PERUBAHAN  9.181
+  DM         10.164
+  SMILE      10.982
+  WALL_IN    6.922
+  WALL_OUT   7.592
 
 CAPTIONS:
-   1.32- 1.70  Tapi guys,
-   1.70- 3.03  kalau korang nak tahu
-   3.03- 4.26  apa perubahan besar tu
-   4.26- 5.90  DM saya sekarang!
+   2.47- 3.29  Ok guys!
+   3.29- 3.85  Korang nak tahu tak,
+   3.85- 4.54  tahun depan
+   4.54- 5.03  medical card
+   5.03- 5.96  banyak perubahan
+   5.96- 7.22  pada tahun 2027
+   7.22- 7.60  Tapi guys,
+   7.60- 8.93  kalau korang nak tahu
+   8.93-10.16  apa perubahan besar tu
+  10.16-11.80  DM saya sekarang!
