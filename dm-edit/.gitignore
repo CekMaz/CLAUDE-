@@ -1,5 +1,5 @@
 node_modules/
-dm/assets/footage*.mp4
+dm/assets/*footage*.mp4
 dm/.hyperframes/
 dm/.transcode-cache/
 preview/*_hevc.mp4
